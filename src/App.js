@@ -1,8 +1,23 @@
 import React, { Component } from 'react';
+
+import { firestore } from './firebase'
+
 import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  componentWillMount() {
+    firestore.collection('tasks').add({
+      'title': 'new task',
+    })
+    .then((docRef) => {
+      console.log(`Document written with ID: ${docRef.id}`)
+    })
+    .catch(function(error) {
+      console.error(`Error adding document: ${error}`)
+    })
+  }
+
   render() {
     return (
       <div className="App">
